@@ -4,7 +4,7 @@ import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import WebView from 'react-native-webview';
 
 function App(): JSX.Element {
-  const [androidDebuggingEnabled, setAndroidDebuggingEnabled] = useState<
+  const [webviewDebuggingEnabled, setDebuggingEnabled] = useState<
     boolean | undefined
   >(undefined);
 
@@ -12,31 +12,34 @@ function App(): JSX.Element {
     source: {
       html: '<html><title>Test Webview</title><h1>Hello world from webview!</h1></html>',
     },
-    ...(androidDebuggingEnabled !== undefined ? {androidDebuggingEnabled} : {}),
+    ...(webviewDebuggingEnabled !== undefined ? {webviewDebuggingEnabled} : {}),
   };
 
   return (
     <SafeAreaView>
       <Text style={styles.spacingContainer}>
-        androidDebuggingEnabled={`${androidDebuggingEnabled}`}
+        webviewDebuggingEnabled={`${webviewDebuggingEnabled}`}
       </Text>
 
       <View style={styles.spacingContainer}>
         <Button
-          title="Toggle androidDebuggingEnabled"
-          onPress={() => setAndroidDebuggingEnabled(prev => !prev)}
+          title="Toggle webviewDebuggingEnabled"
+          onPress={() => setDebuggingEnabled(prev => !prev)}
         />
       </View>
 
       <View style={styles.spacingContainer}>
         <Button
-          title="Unset androidDebuggingEnabled"
-          onPress={() => setAndroidDebuggingEnabled(undefined)}
+          title="Unset webviewDebuggingEnabled"
+          onPress={() => setDebuggingEnabled(undefined)}
         />
       </View>
 
       <View style={styles.wvContainer}>
-        <WebView {...wvProps} />
+        <WebView
+          {...wvProps}
+          webviewDebuggingEnabled={webviewDebuggingEnabled}
+        />
       </View>
     </SafeAreaView>
   );
